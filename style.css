@@ -122,7 +122,7 @@ main{max-width:1100px; margin:0 auto; padding:16px;}
 }
 
 /* ---------- Overlay & panel admin ---------- */
-.overlay{
+.overlay[hidden]{ display:none; }
   position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:50;
   display:flex; align-items:flex-end; justify-content:center;
 }
