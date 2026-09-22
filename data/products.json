@@ -1,0 +1,32 @@
+[
+  {
+    "id": "demo-1",
+    "barcode": "8991002100012",
+    "name": "Indomie Goreng",
+    "brand": "Indomie",
+    "price": 3500,
+    "stock": 20,
+    "category": "Makanan",
+    "image": ""
+  },
+  {
+    "id": "demo-2",
+    "barcode": "8996001600033",
+    "name": "Aqua 600ml",
+    "brand": "Aqua",
+    "price": 3000,
+    "stock": 24,
+    "category": "Minuman",
+    "image": ""
+  },
+  {
+    "id": "demo-3",
+    "barcode": "8991003000044",
+    "name": "Teh Pucuk Harum",
+    "brand": "Teh Pucuk",
+    "price": 4000,
+    "stock": 12,
+    "category": "Minuman",
+    "image": ""
+  }
+]
