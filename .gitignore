@@ -1,0 +1,5 @@
+# Local secrets/config overrides
+.env
+.env.*
+*.local
+.DS_Store
