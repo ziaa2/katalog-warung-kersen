@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="stylesheet" href="../styles.css">
+  <title>Admin — Warung</title>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../"><span class="brand-mark">W</span><span><b>WARUNG</b><small>Admin Panel</small></span></a>
+  <div class="top-actions"><button id="themeBtn" class="icon-btn">☼</button><button id="logoutBtn" class="ghost hidden">Keluar</button></div>
+</header>
+
+<main class="container admin">
+  <section id="loginView" class="auth-card">
+    <span class="eyebrow">PRIVATE AREA</span><h1>Admin Warung</h1>
+    <p class="muted">Masuk untuk mengelola produk dan stok.</p>
+    <label class="field"><span>Email</span><input id="email" type="email" autocomplete="username" placeholder="admin@contoh.com"></label>
+    <label class="field"><span>Password</span><input id="password" type="password" autocomplete="current-password" placeholder="Password"></label>
+    <button id="loginBtn" class="primary full">Masuk</button>
+    <div id="loginMsg" class="notice"></div>
+    <div class="dev-note">Mode development: sebelum Supabase dikonfigurasi, panel memakai data lokal di perangkat ini.</div>
+  </section>
+
+  <section id="dashboardView" class="hidden">
+    <div class="page-title"><div><span class="eyebrow">DASHBOARD</span><h1>Kelola barang</h1></div><button id="addBtn" class="primary">＋ Tambah barang</button></div>
+    <div class="stats">
+      <div><small>Total produk</small><b id="statProducts">0</b></div>
+      <div><small>Tersedia</small><b id="statAvailable">0</b></div>
+      <div><small>Habis</small><b id="statSoldOut">0</b></div>
+    </div>
+
+    <div class="admin-tools">
+      <label class="search"><span>⌕</span><input id="adminSearch" placeholder="Cari produk..."></label>
+      <button id="scanBtn" class="secondary">▣ Scan barcode</button>
+      <label class="secondary file-btn">⇧ Import CSV<input id="csvInput" type="file" accept=".csv,text/csv" hidden></label>
+    </div>
+
+    <div id="adminList" class="admin-list"></div>
+  </section>
+</main>
+
+<dialog id="productDialog">
+  <form method="dialog" id="productForm">
+    <div class="dialog-head"><h2 id="formTitle">Tambah barang</h2><button type="button" class="icon-btn" id="closeProduct">×</button></div>
+    <input id="productId" type="hidden">
+    <label class="field"><span>Barcode</span><div class="inline"><input id="barcode" inputmode="numeric" placeholder="Scan atau isi manual"><button type="button" id="formScan" class="secondary">Scan</button></div></label>
+    <label class="field"><span>Nama</span><input id="name" required placeholder="Contoh: Indomie Goreng"></label>
+    <label class="field"><span>Merek</span><input id="brand" placeholder="Indofood"></label>
+    <div class="two">
+      <label class="field"><span>Harga jual</span><input id="price" required type="number" min="0" step="100" inputmode="numeric"></label>
+      <label class="field"><span>Stok</span><input id="stock" required type="number" min="0" step="1" inputmode="numeric"></label>
+    </div>
+    <label class="field"><span>Kategori</span><input id="category" placeholder="Makanan"></label>
+    <label class="field"><span>URL foto (opsional)</span><input id="image" type="url" placeholder="https://..."></label>
+    <div id="lookupResult" class="lookup"></div>
+    <button class="primary full" type="submit">Simpan barang</button>
+  </form>
+</dialog>
+
+<dialog id="scannerDialog">
+  <div class="dialog-head"><h2>Scan barcode</h2><button class="icon-btn" id="closeScanner">×</button></div>
+  <video id="scannerVideo" playsinline></video>
+  <p id="scannerMsg" class="muted">Arahkan kamera ke barcode produk.</p>
+</dialog>
+
+<script src="../config.js"></script>
+<script src="../admin.js"></script>
+</body>
+</html>
