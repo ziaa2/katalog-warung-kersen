@@ -7,7 +7,8 @@
     "price": 3500,
     "stock": 20,
     "category": "Makanan",
-    "image": ""
+    "image": "",
+    "stock_status": "available"
   },
   {
     "id": "demo-2",
@@ -17,7 +18,8 @@
     "price": 3000,
     "stock": 24,
     "category": "Minuman",
-    "image": ""
+    "image": "",
+    "stock_status": "available"
   },
   {
     "id": "demo-3",
@@ -27,6 +29,7 @@
     "price": 4000,
     "stock": 12,
     "category": "Minuman",
-    "image": ""
+    "image": "",
+    "stock_status": "available"
   }
 ]
