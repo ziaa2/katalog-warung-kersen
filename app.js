@@ -5,13 +5,10 @@ let products = [], cart = new Map(), activeCategory = "Semua";
 
 async function loadProducts(){
   try{
-    if(CFG.SUPABASE_URL && CFG.SUPABASE_ANON_KEY){
-      // Supabase integration is intentionally loaded only when configured.
-      const r = await fetch(`${CFG.SUPABASE_URL}/rest/v1/products?select=*&is_available=eq.true&order=name`,{
-        headers:{apikey:CFG.SUPABASE_ANON_KEY,Authorization:`Bearer ${CFG.SUPABASE_ANON_KEY}`}
-      });
-      if(!r.ok) throw new Error("Supabase request failed");
-      products = await r.json();
+    if(CFG.API_BASE){
+      const r = await fetch(`${CFG.API_BASE.replace(/\/$/,"")}/products`);
+      if(!r.ok) throw new Error("API request failed");
+      products = (await r.json()).filter(p=>p.is_available!==false);
     } else {
       const r = await fetch("data/products.json?"+Date.now());
       products = await r.json();
@@ -33,16 +30,16 @@ function render(){
   updateCart();
 }
 function card(p){
-  const qty=cart.get(p.id)||0, disabled=Number(p.stock)<=0;
+  const qty=cart.get(p.id)||0, disabled=p.is_available===false;
   return `<article class="product-card">
     <div class="product-image">${p.image?`<img src="${esc(p.image)}" alt="">`:`<span>${initials(p.name)}</span>`}</div>
     <div class="product-body"><div class="product-meta">${esc(p.brand||p.category||"")}</div><h3>${esc(p.name)}</h3><strong>${money(p.price)}</strong>
-    <div class="stock">${disabled?"<i>Habis</i>":`Stok ${p.stock}`}</div>
+    <div class="stock">${disabled?"<i>Habis</i>":(p.stock_status==="low"?"<i>Stok hampir habis</i>":"<span>Tersedia</span>")}</div>
     ${disabled?`<button class="disabled full" disabled>Habis</button>`:`<div class="qty"><button data-minus="${p.id}">−</button><b>${qty}</b><button data-plus="${p.id}">+</button></div>`}
     </div></article>`;
 }
-function add(id){ const p=products.find(x=>x.id===id); if(!p)return; const n=cart.get(id)||0; if(n<p.stock) cart.set(id,n+1); render(); }
-function change(id,d){ const p=products.find(x=>x.id===id), n=Math.max(0,(cart.get(id)||0)+d); if(!p)return; if(n===0)cart.delete(id); else cart.set(id,Math.min(n,p.stock)); render(); }
+function add(id){ const p=products.find(x=>x.id===id); if(!p)return; const n=cart.get(id)||0; if(!p.is_available) return; cart.set(id,n+1); render(); }
+function change(id,d){ const p=products.find(x=>x.id===id), n=Math.max(0,(cart.get(id)||0)+d); if(!p)return; if(n===0)cart.delete(id); else cart.set(id,n); render(); }
 function updateCart(){
   let count=0,total=0; cart.forEach((q,id)=>{const p=products.find(x=>x.id===id);if(p){count+=q;total+=q*Number(p.price)}});
   $("#cartBar").classList.toggle("hidden",count===0); $("#cartCount").textContent=`${count} barang`;$("#cartTotal").textContent=money(total);$("#dialogTotal").textContent=money(total);

@@ -81,3 +81,20 @@ Mode development bisa mengimpor CSV ke localStorage. Untuk production, import ma
 
 ## 6. Deploy GitHub Pages
 Push seluruh folder ini ke repository GitHub. Aktifkan Pages dari branch utama dan folder root. Setelah HTTPS aktif, PWA dan kamera barcode dapat digunakan pada perangkat yang mendukungnya.
+
+
+## Mode produksi: key Supabase tidak di frontend
+
+Versi ini memakai Supabase Edge Function (`supabase/functions/warung-api`) sebagai API. `SUPABASE_ANON_KEY` dan terutama `SUPABASE_SERVICE_ROLE_KEY` tidak ditaruh di GitHub/frontend. Simpan keduanya sebagai Secrets di Supabase Edge Functions.
+
+Langkah ringkas:
+1. Jalankan `SUPABASE_SCHEMA.sql` di Supabase SQL Editor.
+2. Deploy function `warung-api` dengan Supabase CLI.
+3. Set secrets `SUPABASE_ANON_KEY` dan `SUPABASE_SERVICE_ROLE_KEY` pada project Supabase. `SUPABASE_URL` sudah tersedia sebagai environment bawaan Edge Functions.
+4. Isi `config.js` hanya dengan `SUPABASE_URL` dan URL function pada `API_BASE`, contoh `https://PROJECT_REF.supabase.co/functions/v1/warung-api`. Jangan isi key di file frontend.
+5. Buat user admin di Supabase Authentication.
+
+Dengan mode ini, katalog publik mengambil data melalui Edge Function, sedangkan tambah/edit/hapus barang harus memakai sesi admin.
+
+### Status stok
+Panel admin sekarang tidak meminta angka stok. Pilih salah satu: **Tersedia** atau **Stok hampir habis**. Data status disimpan di kolom `stock_status`.

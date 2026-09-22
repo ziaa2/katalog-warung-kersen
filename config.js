@@ -1,16 +1,12 @@
 /*
-  Konfigurasi WARUNG.
-  Jangan taruh password/service-role key di file ini.
-  Untuk GitHub Pages, hanya anon/publishable key Supabase yang boleh ada di frontend.
+  Konfigurasi frontend.
+  TIDAK ada anon key/service-role key di sini.
+  API_BASE menunjuk ke Supabase Edge Function yang menyimpan key sebagai Secret.
 */
 window.WARUNG_CONFIG = {
-  // Isi setelah membuat project Supabase:
   SUPABASE_URL: "",
-  SUPABASE_ANON_KEY: "",
-
-  // Nomor WhatsApp tujuan, format internasional tanpa +, contoh 62812xxxx
+  API_BASE: "",
   WHATSAPP_NUMBER: "6281234567890",
-
   STORE_NAME: "WARUNG",
   STORE_TAGLINE: "Katalog Online"
 };
