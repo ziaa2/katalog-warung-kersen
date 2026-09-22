@@ -28,7 +28,7 @@
     <div class="stats">
       <div><small>Total produk</small><b id="statProducts">0</b></div>
       <div><small>Tersedia</small><b id="statAvailable">0</b></div>
-      <div><small>Habis</small><b id="statSoldOut">0</b></div>
+      <div><small>Hampir habis</small><b id="statLow">0</b></div>
     </div>
 
     <div class="admin-tools">
@@ -50,7 +50,7 @@
     <label class="field"><span>Merek</span><input id="brand" placeholder="Indofood"></label>
     <div class="two">
       <label class="field"><span>Harga jual</span><input id="price" required type="number" min="0" step="100" inputmode="numeric"></label>
-      <label class="field"><span>Stok</span><input id="stock" required type="number" min="0" step="1" inputmode="numeric"></label>
+      <label class="field"><span>Status stok</span><select id="stockStatus" required><option value="available">Tersedia</option><option value="low">Stok hampir habis</option></select></label>
     </div>
     <label class="field"><span>Kategori</span><input id="category" placeholder="Makanan"></label>
     <label class="field"><span>URL foto (opsional)</span><input id="image" type="url" placeholder="https://..."></label>
